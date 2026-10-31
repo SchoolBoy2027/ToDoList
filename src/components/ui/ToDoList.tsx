@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, FlatList, StyleSheet, Text } from "react-native";
+import { View,  FlatList, StyleSheet, Text } from "react-native";
 import {Image } from "react-native";
 
 /**
@@ -26,12 +26,30 @@ const ToDoList = ({
     const [listItems, setListItems] = useState<string[]>([]);
 
     /**
-     * itemInputHandler(enteredText:string)
-     * @param enteredText
+     * handleTitlePress if containes values, clear... otherwise load some test data 100 values total
      */
-    function itemInputHandler(enteredText: string) {
-        setEnteredItemText(enteredText);
-    }
+      const handleTitlePress = () => {
+          if (listItems.length > 0) {
+              setListItems([]);
+          } else {
+              const items: string[] = [];
+
+              for (let i = 1; i <= 100; i++) {
+                  let number = i;
+                  let letters = "";
+
+                  while (number > 0) {
+                      number--;
+                      letters = String.fromCharCode(97 + (number % 26)) + letters;
+                      number = Math.floor(number / 26);
+                  }
+
+                  items.push(letters);
+              }
+
+              setListItems(items);
+          }
+      };
 
     /**
      * deleteItemHandler(index: number)
@@ -44,7 +62,7 @@ const ToDoList = ({
     }
 
     /**
-     * addItemHandler()
+     * addItemHandler() Rebuilt the list with a new value
      */
     function addItemHandler() {
         console.log(onAdd);
@@ -58,33 +76,35 @@ const ToDoList = ({
 
         setEnteredItemText('');
     }
-
+    /**
+     * passes Textbox value to here
+     */
     useEffect(() => {
         addItemHandler();
     }, [onAdd]);
 
     return (
      <View style={styles.listContainer}>
-      <Text style={styles.titleBar} onPress={() => setListItems([])}>John's To Do List</Text>
-        <ScrollView>
-            {listItems.length === 0 ? (
-                <Image
-                    source={require("../../../assets/images/OU.png")}
-                    style={styles.emptyImage}
-                    resizeMode="stretch"
-                />
-            ) : (
-                listItems.map((item, index) => (
-                    <Text
-                        key={index}
-                        style={styles.itemText}
-                        onPress={() => deleteItemHandler(index)}
-                    >
-                        {item}
-                    </Text>
-                ))
-            )}
-        </ScrollView>
+      <Text style={styles.titleBar} onPress={handleTitlePress}>John's To Do List</Text>
+           <FlatList
+                  data={listItems}
+                  keyExtractor={(item, index) => index.toString()}
+                  renderItem={({ item, index }) => (
+                      <Text
+                          style={styles.itemText}
+                          onPress={() => deleteItemHandler(index)}
+                      >
+                          {item}
+                      </Text>
+                  )}
+                  ListEmptyComponent={
+                      <Image
+                          source={require("../../../assets/images/OU.png")}
+                          style={styles.emptyImage}
+                          resizeMode="stretch"
+                      />
+                  }
+/>
 </View>
     );
 };
@@ -111,7 +131,7 @@ const styles = StyleSheet.create({
     },
 
     itemText: {
-        color:"255, 255, 254",
+        color:"white",
         fontSize: 20,
         textAlign:"center",
         fontWeight: "bold",

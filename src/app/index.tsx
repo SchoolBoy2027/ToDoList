@@ -1,9 +1,6 @@
 import * as Device from 'expo-device';
-import { Text,Platform, StyleSheet, TextInput } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import  Textbox from '../components/ui/Textbox';
 import  ToDoList from '../components/ui/ToDoList';
 
@@ -21,7 +18,7 @@ export default function HomeScreen() {
 
 
   return (
-    <ThemedView style={styles.container}>
+    <View style={styles.container}>
 
       <ToDoList onAdd={myNewItem}  >
 
@@ -36,7 +33,7 @@ export default function HomeScreen() {
           <Text style={styles.myTitle}>{myNewItem}</Text>
       )}
 
-    </ThemedView>
+    </View>
   );
 }
 
