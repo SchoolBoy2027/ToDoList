@@ -1,13 +1,24 @@
 import { useState } from 'react';
-import { Button,Text, Dimensions, Pressable, StyleSheet, TextInput, View } from 'react-native';
+import {
+    Text,
+    Dimensions,
+    Pressable,
+    StyleSheet,
+    TextInput,
+    View,
+    Modal,
+    Image
+} from 'react-native';
 /**
  * TextboxProps types of textbox properties
  */
-type TextboxProps = {
+interface TextboxProps {
     labelText: string;
     placeholderText: string;
     onChange?: (value: string) => void;
     onPress?: () => void;
+    onClose?: () => void;
+    visible:boolean;
 };
 
 const screenHeight = Dimensions.get("window").height;
@@ -16,14 +27,16 @@ const Textbox = ({
     labelText,
     placeholderText,
     onChange,
-    onPress
+    onPress,
+    onClose,
+    visible
 
 }: TextboxProps) => {
 
     const [text, setText] = useState('');
- 
+
     const handleChange = (newText: string) => {
-       
+
         setText(newText);
     };
 
@@ -31,14 +44,22 @@ const Textbox = ({
         if (onChange) {
             onChange(text);
         }
-            if (onPress) {
+        if (onPress) {
             onPress();
         }
         setText('');
     };
 
     return (
+        <Modal visible={visible} animationType="slide">
         <View style={myStyles.container} >
+             <Pressable onPress={onClose}>
+                <Image
+                    source={require("../../../assets/images/OU.png")}
+                    style={myStyles.emptyImage}
+                    resizeMode="stretch"
+                />
+            </Pressable>
 
             <TextInput
                 placeholder={placeholderText}
@@ -54,6 +75,7 @@ const Textbox = ({
             </Pressable>
 
         </View>
+        </Modal >
     );
 }
 
@@ -64,11 +86,12 @@ const myStyles = StyleSheet.create({
         alignItems: "center",
         width: "100%",
         position: "absolute",
-        top: screenHeight * 0.70,
+        marginTop:20,
         paddingHorizontal: 10,
         marginBottom: 15,
-        height:screenHeight*.25,
-        backgroundColor:"#FFFFF0"
+        backgroundColor: "#841617",
+        height:"100%",
+        color:"white"
     },
 
     labelButton: {
@@ -77,37 +100,44 @@ const myStyles = StyleSheet.create({
         borderWidth: 2,
         borderColor: "black",
         borderStyle: "solid",
-        borderRadius: 5,
-        backgroundColor:"#0274df",
-        minWidth:"100%",
-       minHeight: 60,
+        borderRadius: 600,
+        backgroundColor: "#574f4f",
+        minWidth: "100%",
+        minHeight: 60,
         fontWeight: "bold",
         textAlignVertical: "center",
         flexShrink: 1,
     },
     labelButtonText: {
-        color:"white",  
+        color: "white",
         fontSize: 20,
-        textAlign:"center",
+        textAlign: "center",
         fontWeight: "bold",
         textAlignVertical: "center",
+       
     },
-    
+
 
     formText: {
-        marginTop:5,
+        marginTop: 25,
         paddingTop: 1,
         minHeight: 120,
-        marginLeft:1,
+        marginLeft: 1,
         borderWidth: 2,
-        borderColor: "blue",
+        borderColor: "#574f4f",
         borderStyle: "solid",
         borderRadius: 1,
         fontSize: 16,
+        backgroundColor:"white",
         textAlignVertical: "top",
-        minWidth:"100%",
-        color:"black"
+        minWidth: "100%",
+        color: "black"
     },
+    emptyImage: {
+    width: 200,
+    height: 200,
+    alignSelf: "center",
+},
 
 })
 

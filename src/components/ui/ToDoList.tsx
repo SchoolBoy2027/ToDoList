@@ -5,7 +5,7 @@ import {Image } from "react-native";
 /**
  * ToDoListProps properties
  */
-type ToDoListProps = {
+interface ToDoListProps {
     onAdd?: string;
     onDelete?: (value: string) => string;
 };
@@ -24,6 +24,7 @@ const ToDoList = ({
 
     const [enteredItemText, setEnteredItemText] = useState<string>('');
     const [listItems, setListItems] = useState<string[]>([]);
+
 
     /**
      * handleTitlePress if containes values, clear... otherwise load some test data 100 values total
@@ -120,8 +121,8 @@ const styles = StyleSheet.create({
         color:"white"
     },
     listContainer: {
-        height: "70%",
-        marginTop: 40,
+        height: "80%",
+        marginTop: 10,
         paddingTop: 5,
         paddingHorizontal: 16,
         borderWidth: 1,
@@ -135,6 +136,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign:"center",
         fontWeight: "bold",
+        borderBottomWidth:1,
+        borderColor:"white"
        
     },
     emptyImage: {
