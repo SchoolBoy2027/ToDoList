@@ -41,3 +41,5 @@ example
 # generated native folders
 /ios
 /android
+assets/images/minimize.png
+assets/images/Notify.png

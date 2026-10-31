@@ -4,18 +4,19 @@
     "slug": "ToDoList_JCox",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/OU.png",
     "scheme": "todolistjcox",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/images/OU.png"
     },
     "android": {
+          "package": "com.example.todoapp",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#DC143C",
+        "foregroundImage": "./assets/images/OU.png",
+        "backgroundImage": "./assets/images/OU.png",
+        "monochromeImage": "./assets/images/OU.png"
       },
       "predictiveBackGestureEnabled": false
     },
@@ -29,7 +30,7 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#208AEF",
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/CoyoteIcon.png",
           "imageWidth": 76
         }
       ]
